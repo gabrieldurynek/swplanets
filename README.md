@@ -4,7 +4,7 @@ Desafio de programação envolvendo o desenvolvimento e consumo de APIs REST.
 
 ## Resumo
 
-Esta API foi desenvolvida com Spring WebFlux para Java.
+Esta API foi desenvolvida com Spring WebFlux para Java. O Maven foi escolhido como o gerenciador deste projeto. O MySql 8.0.23 foi eleito como o banco de dados.
 
 ### Serviços
 #### POST /add
@@ -47,10 +47,71 @@ lista todos os planetas da api swapi.dev
 
 ## Execução
 
-Para construir a imagem docker e executá-la, basta baixar este repositório e executar o comando abaixo
+É necessário fazer o build do projeto com o Maven antes de construir a imagem docker.
+
+```bash
+mvn package
+```
+
+Após o build, a pasta ```/target``` deve conter o executável do projeto. Para executá-lo com uma instância de MySQL, basta emitir o comando abaixo para subir também uma imagem de banco de dados.
 
 ```bash
 docker-compose up
+```
+
+## Testes
+
+Para executar testes, basta executar no terminal os comandos abaixo.
+
+### Adicionar planetas
+``` bash
+curl --location --request POST 'localhost:8989/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Tatooine",
+    "climate": "clima",
+    "terrain": "terreno"
+}'
+```
+
+``` bash
+curl --location --request POST 'localhost:8989/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "abc",
+    "climate": "clima",
+    "terrain": "terreno"
+}'
+```
+
+### Remover planeta
+
+``` bash
+curl --location --request DELETE 'localhost:8989/planet/2'
+```
+
+### Obter um planeta
+
+``` bash
+curl --location --request GET 'localhost:8989/planet/1'
+```
+
+### Buscar planetas
+
+``` bash
+curl --location --request GET 'localhost:8989/search/at'
+```
+
+### Listar todos os planetas
+
+``` bash
+curl --location --request GET 'localhost:8989/planets'
+```
+
+### Listar todos os planetas da API swapi.dev
+
+``` bash
+curl --location --request GET 'localhost:8989/swapiplanets'
 ```
 
 ## Observações
