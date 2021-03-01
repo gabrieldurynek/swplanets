@@ -50,7 +50,7 @@ lista todos os planetas da api swapi.dev
 É necessário fazer o build do projeto com o Maven antes de construir a imagem docker.
 
 ```bash
-mvn package
+./mvnw package
 ```
 
 Após o build, a pasta ```/target``` deve conter o executável do projeto. Para executá-lo com uma instância de MySQL, basta emitir o comando abaixo para subir também uma imagem de banco de dados.
